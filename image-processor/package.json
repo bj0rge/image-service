@@ -1,0 +1,41 @@
+{
+  "name": "image-processor",
+  "version": "1.0.0",
+  "description": "Service handling image processes",
+  "main": "./dist/index.js",
+  "dependencies": {
+    "@fastify/autoload": "^6.0.2",
+    "config": "^3.3.12",
+    "fastify": "^5.1.0",
+    "fastify-plugin": "^5.0.1",
+    "fastify-tsconfig": "2.0.0",
+    "fastify-type-provider-zod": "^4.0.2",
+    "glob": "^11.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@types/config": "^3.3.5",
+    "@types/node": "22.7.4",
+    "pino-pretty": "^11.3.0",
+    "ts-node": "^10.9.2",
+    "tsx": "4.7.2",
+    "typescript": "^5.6.3"
+  },
+  "scripts": {
+    "build:ts": "tsc",
+    "build:babel": "babel ./dist --out-dir ./dist --extensions \".js\"",
+    "build": "npm run build:ts && npm run build:babel",
+    "dev": "NODE_ENV=development tsx watch src/index.ts",
+    "start": "node --experimental-specifier-resolution=node ./dist/index.js",
+    "test": "TZ=Etc/UTC NODE_ENV=test npm run test:single -- --path './src/**/*.test.ts'",
+    "test:single": "NODE_ENV=test npx -- tsx ./src/__tests__/utils/run.ts"
+  },
+  "author": "bj0rge",
+  "license": "ISC",
+  "volta": {
+    "node": "22.11.0"
+  }
+}
