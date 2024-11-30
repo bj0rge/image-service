@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  image-cache:
+    build:
+      context: ./image-cache
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: image-cache
+
+  image-processor:
+    build:
+      context: ./image-processor
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    container_name: image-processor
+    depends_on:
+      - image-cache
