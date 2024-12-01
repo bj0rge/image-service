@@ -1,21 +1,32 @@
+import type { FileInfo, ImageMimetype } from "../domain";
+
 export type Database = {
-  saveFile: (args: { id: string; name: string }) => void;
+  saveFile: (args: {
+    id: string;
+    name: string;
+    mimetype: ImageMimetype;
+  }) => void;
+  getFile: (id: string) => FileInfo | undefined;
+
   __testOnly__: {
-    fileNamesById: Map<string, string>;
+    fileInfoById: Map<string, FileInfo>;
   };
 };
 
 export const buildDatabase = (): Database => {
-  const fileNamesById: Map<string, string> = new Map();
+  const fileInfoById: Map<string, FileInfo> = new Map();
 
-  const saveFile: Database["saveFile"] = ({ id, name }) => {
-    fileNamesById.set(id, name);
+  const saveFile: Database["saveFile"] = ({ id, name, mimetype }) => {
+    fileInfoById.set(id, { id, name, mimetype });
   };
+
+  const getFile: Database["getFile"] = (id) => fileInfoById.get(id);
 
   return {
     saveFile,
+    getFile,
     __testOnly__: {
-      fileNamesById,
+      fileInfoById,
     },
   };
 };

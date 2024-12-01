@@ -2,7 +2,7 @@ import * as z from "zod";
 import { type FastifyInstance } from "fastify";
 import { type ZodTypeProvider } from "fastify-type-provider-zod";
 import { defaultErrorsSchema } from "../../utils/errors";
-import { storeFile } from "../../../domain/file";
+import { storeFile } from "../../../domain";
 
 const imageUploadedSchema = z.object({ id: z.string(), name: z.string() });
 
@@ -36,18 +36,19 @@ export default async (app: FastifyInstance) =>
         });
       }
 
-      if (!data.mimetype.startsWith("image/")) {
+      const storedFileResult = await storeFile(data);
+
+      if (storedFileResult.outcome === "invalidFileType") {
         request.log.error({ mimetype: data.mimetype }, "Invalid file type");
         return reply.status(415).send({
           error: "invalidFileType",
           message: "Please upload a JPEG or PNG image",
           statusCode: 415,
-          detail: { mimetype: data.mimetype },
+          detail: storedFileResult.details,
         });
       }
 
-      const storedFile = await storeFile(data);
-      request.log.info({ file: storedFile }, "File uploaded");
+      request.log.info({ file: storedFileResult.file }, "File uploaded");
 
-      return reply.status(200).send(storedFile);
+      return reply.status(200).send(storedFileResult.file);
     });

@@ -1,7 +1,7 @@
 import { it, describe } from "node:test";
 import { equal } from "node:assert";
 import { faker } from "@faker-js/faker";
-import { generateUniqueFilename } from "../utils";
+import { generateUniqueFilename, isMimetypeAnImage } from "../utils";
 
 describe("generateUniqueFilename()", () => {
   describe("given a filename without an extension", () => {
@@ -31,5 +31,19 @@ describe("generateUniqueFilename()", () => {
       const result = generateUniqueFilename(`${filename}.${extension}`, id);
       equal(result, `${filename}-${id}.${extension}`);
     });
+  });
+});
+
+describe("isMimetypeAnImage", () => {
+  it("should return true for image/png", () => {
+    equal(isMimetypeAnImage("image/png"), true);
+  });
+
+  it("should return true for image/jpeg", () => {
+    equal(isMimetypeAnImage("image/jpeg"), true);
+  });
+
+  it("should return false for text/plain", () => {
+    equal(isMimetypeAnImage("text/plain"), false);
   });
 });
