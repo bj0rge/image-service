@@ -4,6 +4,9 @@ import { pipeline } from "node:stream/promises";
 import type { MultipartFile } from "@fastify/multipart";
 import { randomUUID } from "node:crypto";
 import { generateUniqueFilename } from "./utils";
+import { buildDatabase } from "../../infrastructure/in-memory-database";
+
+const database = buildDatabase();
 
 export async function writeFile(
   multipartFile: MultipartFile,
@@ -21,5 +24,6 @@ export async function storeFile(
   const id = randomUUID();
   const name = generateUniqueFilename(multipartFile.filename, id);
   await writeFile(multipartFile, name);
+  database.saveFile({ id, name });
   return { id, name };
 }

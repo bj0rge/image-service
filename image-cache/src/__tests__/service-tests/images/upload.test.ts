@@ -34,5 +34,7 @@ describe("POST /images", async () => {
     const cachedFilePath = path.join(CACHE_PATH, name);
     const isFileSaved = await fs.existsSync(cachedFilePath);
     ok(isFileSaved);
+
+    // TODO: Add a test to check the file has been saved in db
   });
 });
