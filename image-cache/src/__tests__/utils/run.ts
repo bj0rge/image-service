@@ -6,6 +6,11 @@ import { PassThrough } from "node:stream";
 import { buffer } from "node:stream/consumers";
 import { glob } from "glob";
 import { parseArgs } from "node:util";
+import { emptyCache } from "./empty-cache";
+
+function testCleanup(): void {
+  emptyCache();
+}
 
 // This file resolves the file paths from given globs and runs the test
 // runner on file paths
@@ -34,6 +39,9 @@ async function main() {
     timeout: Number.parseInt(timeout || "20000"),
     watch,
   });
+
+  // Cleaning up the cache before running tests
+  testCleanup();
 
   // TODO: optimisation, figure out how to avoid relying on the passthrough
   // to detect if tests failed

@@ -1,3 +1,6 @@
 {
-  "env": "test"
+  "env": "test",
+  "app": {
+    "port": 0
+  }
 }
