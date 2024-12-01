@@ -9,6 +9,7 @@ import {
 } from "fastify-type-provider-zod";
 import { getConfig } from "../utils/config";
 import { plugins } from "../presentation";
+import multipart from "@fastify/multipart";
 
 const prettyLoggerOptions: FastifyServerOptions["logger"] = {
   transport: {
@@ -38,6 +39,7 @@ export async function build(): Promise<FastifyInstance> {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
 
+  app.register(multipart);
   app.register(plugins);
 
   return app.withTypeProvider<ZodTypeProvider>();
