@@ -8,6 +8,7 @@ This project demonstrates a microservices architecture using Node.js, TypeScript
     - [➡️ Contribute (dev)](#️-contribute-dev)
     - [➡️ Run (production)](#️-run-production)
   - [🌐 API](#-api)
+  - [🎥 Demo](#-demo)
   - [🤖 Technical documentation](#-technical-documentation)
     - [🛠️ Typescript](#️-typescript)
     - [⚡ Volta](#-volta)
@@ -75,6 +76,10 @@ Once running, 5 endpoints are available:
 - an endpoint to store an image in the service at POST [http://127.0.0.1:3000/images](http://127.0.0.1:3000/images), returning an `id`
 - an endpoint to fetch an image in the service given its `id` at GET [http://127.0.0.1:3000/images/:id](http://127.0.0.1:3000/images/:id)
 - an endpoint to fetch a blurred image in the service given its `id` at GET [http://127.0.0.1:3001/blurred-images/:id](http://127.0.0.1:3001/blurred-images/:id)
+
+## 🎥 Demo
+
+![demo](./assets/demo.gif)
 
 ## 🤖 Technical documentation
 ### 🛠️ Typescript
