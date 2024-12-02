@@ -1,3 +1,11 @@
 {
-  "env": "test"
+  "env": "test",
+  "app": {
+    "port": 0
+  },
+  "dependencies": {
+    "imageCacheService": {
+      "baseUrl": "http://127.0.0.1:3003"
+    }
+  }
 }
